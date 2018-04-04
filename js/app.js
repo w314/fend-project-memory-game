@@ -63,6 +63,54 @@ function resetDeck() {
 
 resetDeck();
 
+function handleMatchingCards() {
+    console.log("cards are matching");
+    openCards.forEach(function(card) {
+      card.classList.add('open');
+    });
+}
+
+function handleDiffrentCards() {
+  openCards.forEach(function(card) {
+    setTimeout(function() { card.classList.remove('show', 'open');}, 1000);
+  });
+  openCards = [];
+}
+
+function showSymbol(card) {
+  card.classList.add('show', 'open');
+}
+
+function addToOpenCards(card) {
+  openCards.push(card);
+  if(openCards.length === 2) {
+    if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
+      handleMatchingCards();
+    } else{
+      handleDiffrentCards();
+    }
+  }
+}
+
+function respondToClick(event) {
+  //TO DO: if first click start timer
+
+  const card = event.target;
+  console.log('my card');
+  console.log(card);
+  //check if card clicked is already shown
+  if(card.classList.contains('show')) {
+    console.log('card is already shown');
+  } else {
+    showSymbol(card);
+    addToOpenCards(card);
+  }
+}
+
+let openCards = [];
+deck = document.getElementsByClassName('deck')[0];
+deck.addEventListener('click', respondToClick );
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
