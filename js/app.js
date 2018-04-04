@@ -61,6 +61,10 @@ function resetDeck() {
 
 }
 
+function handleEndGame() {
+  alert("end of game");
+}
+
 
 function setupGame() {
   resetDeck();
@@ -71,8 +75,16 @@ function setupGame() {
 function handleMatchingCards() {
     console.log("cards are matching");
     openCards.forEach(function(card) {
-      card.classList.add('open');
+      card.classList.add('match');
     });
+    //increases number of matched cards
+    matches++;
+    //empty open cards list
+    openCards = [];
+    //check for end of game
+    if(matches===8) {
+      setTimeout(handleEndGame, 10);
+    }
 }
 
 function handleDiffrentCards() {
@@ -121,6 +133,7 @@ function respondToClick(event) {
 setupGame();
 
 let openCards = [];
+let matches = 0;
 deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
 
