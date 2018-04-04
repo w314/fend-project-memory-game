@@ -1,24 +1,6 @@
 /*
  * Create a list that holds all of your cards
  */
- const cards = [
-   'fa-dimond',
-   'fa-paper-plane-o',
-   'fa-anchor',
-   'fa-bolt',
-   'fa-cube',
-   'fa-leaf',
-   'fa-bicycle',
-   'fa-bomb',
-   'fa-dimond',
-   'fa-paper-plane-o',
-   'fa-anchor',
-   'fa-bolt',
-   'fa-cube',
-   'fa-leaf',
-   'fa-bicycle',
-   'fa-bomb'
- ];
 
 /*
  * Display the cards on the page
@@ -42,6 +24,44 @@ function shuffle(array) {
     return array;
 }
 
+function resetDeck() {
+
+  const symbols = [
+    'fa-dimond',
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bomb',
+    'fa-dimond',
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bomb'
+  ];
+
+  shuffle(symbols);
+
+  const cards = document.getElementsByClassName('card');
+
+  for(let i=0; i < 16; i++){
+    //remove classes from cards showing game status
+    cards[i].classList.remove('match', 'show', 'open');
+    //remove old symbol class from card
+    let oldSymbol =   cards[i].firstElementChild.classList[1];
+    cards[i].firstElementChild.classList.remove(oldSymbol);
+    //add new symbol class to card
+    cards[i].firstElementChild.classList.add(symbols[i]);
+  }
+
+}
+
+resetDeck();
 
 /*
  * set up the event listener for a card. If a card is clicked:
