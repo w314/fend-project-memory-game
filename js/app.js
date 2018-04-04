@@ -83,6 +83,7 @@ function handleMatchingCards() {
     openCards = [];
     //check for end of game
     if(matches===8) {
+      //add timeout, to avoid end of game message shown before the last pair of cards are redrawn
       setTimeout(handleEndGame, 10);
     }
 }
