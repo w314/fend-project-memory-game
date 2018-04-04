@@ -86,6 +86,11 @@ function showSymbol(card) {
   card.classList.add('show', 'open');
 }
 
+function increaseMoves() {
+  const moves =   document.getElementsByClassName('moves')[0];
+  moves.innerText = parseInt(moves.innerText) + 1;
+}
+
 function addToOpenCards(card) {
   openCards.push(card);
   if(openCards.length === 2) {
@@ -107,6 +112,7 @@ function respondToClick(event) {
   if(card.classList.contains('show')) {
     console.log('card is already shown');
   } else {
+    increaseMoves();
     showSymbol(card);
     addToOpenCards(card);
   }
