@@ -61,7 +61,12 @@ function resetDeck() {
 
 }
 
-resetDeck();
+
+function setupGame() {
+  resetDeck();
+  //reset moves:
+  document.getElementsByClassName('moves')[0].innerText=0;
+}
 
 function handleMatchingCards() {
     console.log("cards are matching");
@@ -107,9 +112,13 @@ function respondToClick(event) {
   }
 }
 
+setupGame();
+
 let openCards = [];
 deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
