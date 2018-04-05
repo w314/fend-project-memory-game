@@ -131,6 +131,27 @@ function respondToClick(event) {
   }
 }
 
+function displayTime(startTime) {
+  const timeNow = new Date();
+  console.log('time now:');
+  console.log(timeNow.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+  const elapsedTime = new Date(timeNow - startTime);
+  const timer = document.getElementsByClassName('timer')[0];
+  timer.innerText = elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
+  console.log(elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+}
+
+function startTimer(mode) {
+  const startTime =  new Date();
+  console.log('starting at:');
+  console.log(startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+  const intervalId = setInterval(function() { displayTime(startTime); }, 800);
+  setTimeout(function() { clearInterval(intervalId); }, 5000);
+}
+
+/*
+THIS IS WORKNG BELOW:
+
 setupGame();
 
 let openCards = [];
@@ -138,7 +159,9 @@ let matches = 0;
 deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
 
+*/
 
+startTimer();
 
 /*
  * set up the event listener for a card. If a card is clicked:
