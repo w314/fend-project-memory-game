@@ -104,8 +104,9 @@ function showSymbol(card) {
 }
 
 function increaseMoves() {
+  game.moves++;
   const moves =   document.getElementsByClassName('moves')[0];
-  moves.innerText = parseInt(moves.innerText) + 1;
+  moves.innerText = game.moves;
 }
 
 function addToOpenCards(card) {
@@ -162,8 +163,10 @@ setupGame();
 
 let openCards = [];
 let game = {
-  matches : 0,
-  started : false
+  matches: 0,
+  started: false,
+  starRating: 3,
+  moves: 0
 };
 // let matches = 0;
 deck = document.getElementsByClassName('deck')[0];
