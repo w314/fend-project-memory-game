@@ -65,7 +65,8 @@ function handleEndGame() {
   //stop timer
   clearInterval(game.intervalId);
   game.stopTime = new Date();
-  alert("end of game");
+  const gameTime = new Date(game.stopTime - game.startTime)
+  alert(gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
 }
 
 
