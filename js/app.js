@@ -117,6 +117,10 @@ function addToOpenCards(card) {
 
 function respondToClick(event) {
   //TO DO: if first click start timer
+  if(!game.started) {
+    startTimer();
+    game.started = true;
+  }
 
   const card = event.target;
   console.log('my card');
@@ -135,17 +139,17 @@ function displayTime(startTime) {
   const timeNow = new Date();
   console.log('time now:');
   console.log(timeNow.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
-  const elapsedTime = new Date(timeNow - startTime);
+  const elapsedTime = new Date(timeNow - game.startTime);
   const timer = document.getElementsByClassName('timer')[0];
   timer.innerText = elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
   console.log(elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
 }
 
 function startTimer(mode) {
-  const startTime =  new Date();
+  game.startTime =  new Date();
   console.log('starting at:');
-  console.log(startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
-  const intervalId = setInterval(function() { displayTime(startTime); }, 800);
+  console.log(game.startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+  const intervalId = setInterval(function() { displayTime(); }, 800);
   setTimeout(function() { clearInterval(intervalId); }, 5000);
 }
 
@@ -154,7 +158,8 @@ setupGame();
 
 let openCards = [];
 let game = {
-  matches : 0
+  matches : 0,
+  started : false
 };
 // let matches = 0;
 deck = document.getElementsByClassName('deck')[0];
