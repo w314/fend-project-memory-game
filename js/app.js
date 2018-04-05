@@ -78,11 +78,11 @@ function handleMatchingCards() {
       card.classList.add('match');
     });
     //increases number of matched cards
-    matches++;
+    game.matches++;
     //empty open cards list
     openCards = [];
     //check for end of game
-    if(matches===8) {
+    if(game.matches===8) {
       //add timeout, to avoid end of game message shown before the last pair of cards are redrawn
       setTimeout(handleEndGame, 10);
     }
@@ -149,19 +149,18 @@ function startTimer(mode) {
   setTimeout(function() { clearInterval(intervalId); }, 5000);
 }
 
-/*
-THIS IS WORKNG BELOW:
 
 setupGame();
 
 let openCards = [];
-let matches = 0;
+let game = {
+  matches : 0
+};
+// let matches = 0;
 deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
 
-*/
-
-startTimer();
+// startTimer();
 
 /*
  * set up the event listener for a card. If a card is clicked:
