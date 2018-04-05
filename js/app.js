@@ -103,10 +103,20 @@ function showSymbol(card) {
   card.classList.add('show', 'open');
 }
 
+function decreaseStars() {
+  game.starRating--;
+  const star = document.getElementsByClassName('fa-star')[game.starRating];
+  star.style.display = 'none';
+}
+
 function increaseMoves() {
   game.moves++;
   const moves =   document.getElementsByClassName('moves')[0];
   moves.innerText = game.moves;
+  //decrease stars after certain number of moves
+  if(game.moves === 30 || game.moves === 40 || game.moves === 50){
+    decreaseStars();
+  }
 }
 
 function addToOpenCards(card) {
@@ -121,15 +131,15 @@ function addToOpenCards(card) {
 }
 
 function respondToClick(event) {
-  //TO DO: if first click start timer
+  //At the first click start the game
   if(!game.started) {
     startTimer();
     game.started = true;
   }
 
   const card = event.target;
-  console.log('my card');
-  console.log(card);
+  // console.log('my card');
+  // console.log(card);
   //check if card clicked is already shown
   if(card.classList.contains('show')) {
     console.log('card is already shown');
@@ -142,12 +152,12 @@ function respondToClick(event) {
 
 function displayTime(startTime) {
   const timeNow = new Date();
-  console.log('time now:');
-  console.log(timeNow.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+  // console.log('time now:');
+  // console.log(timeNow.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
   const elapsedTime = new Date(timeNow - game.startTime);
   const timer = document.getElementsByClassName('timer')[0];
   timer.innerText = elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
-  console.log(elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+  // console.log(elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
 }
 
 function startTimer(mode) {
@@ -155,7 +165,6 @@ function startTimer(mode) {
   console.log('starting at:');
   console.log(game.startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
   game.intervalId = setInterval(function() { displayTime(); }, 800);
-  // setTimeout(function() { clearInterval(intervalId); }, 5000);
 }
 
 
@@ -168,11 +177,8 @@ let game = {
   starRating: 3,
   moves: 0
 };
-// let matches = 0;
 deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
-
-// startTimer();
 
 /*
  * set up the event listener for a card. If a card is clicked:
