@@ -62,6 +62,9 @@ function resetDeck() {
 }
 
 function handleEndGame() {
+  //stop timer
+  clearInterval(game.intervalId);
+  game.stopTime = new Date();
   alert("end of game");
 }
 
@@ -149,8 +152,8 @@ function startTimer(mode) {
   game.startTime =  new Date();
   console.log('starting at:');
   console.log(game.startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
-  const intervalId = setInterval(function() { displayTime(); }, 800);
-  setTimeout(function() { clearInterval(intervalId); }, 5000);
+  game.intervalId = setInterval(function() { displayTime(); }, 800);
+  // setTimeout(function() { clearInterval(intervalId); }, 5000);
 }
 
 
