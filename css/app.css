@@ -33,6 +33,10 @@ h1 {
     font-weight: 300;
 }
 
+.hidden {
+  display: none;
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -77,8 +81,8 @@ h1 {
 
 .deck .card.match {
     cursor: default;
-    background: #02ccba;
     font-size: 33px;
+    background: #02ccba;
 }
 
 /*
@@ -114,6 +118,70 @@ h1 {
     cursor: pointer;
 }
 
-.hidden {
-  display: none;
+/*
+ * Styles for the end-game-modal
+ */
+
+.end-game-modal {
+    position: absolute;
+    top: 70px;
+    width: 60%;
+    max-width: 600px;
+    overflow: auto; /* Enable scroll if needed */
+    background: linear-gradient(160deg, #aa7ecd 0%, #02ccba 100%);
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    border-radius: 10px;
+    border: solid 5px #aa7ecd;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close {
+  color: silver;
+  padding: 0 15px 5px 5px;
+  font-size: 2em;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.congratulation {
+  text-shadow: white 1px 0 10px ;
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+.result-list {
+  text-align: left;
+  width: 40%;
+  min-width: 240px;
+  margin: auto;
+}
+
+.result-list ul {
+  display: inline-block;
+}
+
+.result-list li {
+  list-style: none;
+}
+
+.modal-footer {
+  margin: 5px 40px 30px 40px;
+  padding: 5px 5px 20px 5px;
+  border: solid 1px white;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px silver;
+  text-align: center;
+}
+
+.end-game-modal button {
+  background-color: silver;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 20px 0 20px;
 }
