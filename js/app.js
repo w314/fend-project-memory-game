@@ -1,14 +1,3 @@
-/*
- * Create a list that holds all of your cards
- */
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -106,7 +95,7 @@ function showSymbol(card) {
 function decreaseStars() {
   game.starRating--;
   const star = document.getElementsByClassName('fa-star')[game.starRating];
-  star.classList.add('hidden');
+  setTimeout(function() { star.classList.add('hidden'); },10);
 }
 
 function increaseMoves() {
@@ -154,7 +143,7 @@ function displayTime() {
   timer.innerText = elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
 }
 
-function startTimer(mode) {
+function startTimer() {
   game.startTime =  new Date();
   console.log('starting at:');
   console.log(game.startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
@@ -195,7 +184,6 @@ function resetGame() {
 
 
 //define game variables
-let openCards = [];
 let game = {
   matches: 0,
   started: false,
@@ -204,27 +192,28 @@ let game = {
   startTime: null,
   endTime: null
 };
-
+let openCards = [];
 let level1 = 30;
 let level2 = 40;
 let level3 = 50;
 let winningScore = 8;
-const testing = false;
 
+//variables for testing
+const testing = true;
 if(testing) {
-  let level1 = 3;
-  let level2 = 5;
-  let level3 = 7;
-  let winningScore = 2;
+  level1 = 3;
+  level2 = 5;
+  level3 = 7;
+  winningScore = 2;
 }
 
-
+//get game ready to start
 setupGame();
-
 const deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
 const restartButton = document.getElementsByClassName('restart')[0];
 restartButton.addEventListener('click', resetGame );
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
