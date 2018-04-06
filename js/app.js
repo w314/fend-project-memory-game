@@ -187,6 +187,10 @@ function closeEndGameModal() {
   endGameModal.classList.add('hidden');
 }
 
+function newGame() {
+  closeEndGameModal();
+  resetGame();
+}
 
 //define game variables
 let game = {
@@ -212,7 +216,7 @@ if(testing) {
   winningScore = 2;
 }
 
-//get game ready to start
+//get game ready to star
 setupGame();
 //add clik event listener to cards
 const deck = document.getElementsByClassName('deck')[0];
@@ -220,16 +224,14 @@ deck.addEventListener('click', respondToClick );
 //add click event listener to restart game button
 const restartButton = document.getElementsByClassName('restart')[0];
 restartButton.addEventListener('click', resetGame );
+
+//END GAME MODAL SETUP
 //add click listener to end game modal close button
 const modalClose = document.getElementsByClassName('close')[0];
-modalClose.addEventListener('click', closeEndGameModal );
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+modalClose.addEventListener('click', closeEndGameModal);
+//add click event listener to end game modal new game button
+const modalNewGame = document.getElementsByClassName('new-game')[0];
+modalNewGame.addEventListener('click', newGame);
+//add click event listener to end game modal no new game button
+const modalNoNewGame = document.getElementsByClassName('no-new-game')[0];
+modalNoNewGame.addEventListener('click', closeEndGameModal);
