@@ -86,7 +86,7 @@ function handleMatchingCards() {
     //empty open cards list
     openCards = [];
     //check for end of game
-    if(game.matches===8) {
+    if(game.matches === winningScore) {
       //add timeout, to avoid end of game message shown before the last pair of cards are redrawn
       setTimeout(handleEndGame, 10);
     }
@@ -106,7 +106,7 @@ function showSymbol(card) {
 function decreaseStars() {
   game.starRating--;
   const star = document.getElementsByClassName('fa-star')[game.starRating];
-  star.style.display = 'none';
+  star.classList.add('hidden');
 }
 
 function increaseMoves() {
@@ -114,7 +114,7 @@ function increaseMoves() {
   const moves =   document.getElementsByClassName('moves')[0];
   moves.innerText = game.moves;
   //decrease stars after certain number of moves
-  if(game.moves === 30 || game.moves === 40 || game.moves === 50){
+  if(game.moves === level1 || game.moves === level2 || game.moves === level3){
     decreaseStars();
   }
 }
@@ -136,10 +136,7 @@ function respondToClick(event) {
     startTimer();
     game.started = true;
   }
-
   const card = event.target;
-  // console.log('my card');
-  // console.log(card);
   //check if card clicked is already shown
   if(card.classList.contains('show')) {
     console.log('card is already shown');
@@ -150,14 +147,11 @@ function respondToClick(event) {
   }
 }
 
-function displayTime(startTime) {
+function displayTime() {
   const timeNow = new Date();
-  // console.log('time now:');
-  // console.log(timeNow.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
   const elapsedTime = new Date(timeNow - game.startTime);
   const timer = document.getElementsByClassName('timer')[0];
   timer.innerText = elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
-  // console.log(elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
 }
 
 function startTimer(mode) {
@@ -199,6 +193,8 @@ function resetGame() {
   game.intervalId = null;
 }
 
+
+//define game variables
 let openCards = [];
 let game = {
   matches: 0,
@@ -208,6 +204,19 @@ let game = {
   startTime: null,
   endTime: null
 };
+
+let level1 = 30;
+let level2 = 40;
+let level3 = 50;
+let winningScore = 8;
+const testing = false;
+
+if(testing) {
+  let level1 = 3;
+  let level2 = 5;
+  let level3 = 7;
+  let winningScore = 2;
+}
 
 
 setupGame();
