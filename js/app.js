@@ -71,10 +71,10 @@ function handleEndGame() {
 
 
 function setupGame() {
+  //shuffle and hide all cards
   resetDeck();
-  //reset moves:
-  document.getElementsByClassName('moves')[0].innerText=0;
 }
+
 
 function handleMatchingCards() {
     console.log("cards are matching");
@@ -167,19 +167,55 @@ function startTimer(mode) {
   game.intervalId = setInterval(function() { displayTime(); }, 800);
 }
 
+function resetGame() {
+  //TO DO: ask for are you sure
 
-setupGame();
+  //if game has not started yet, nothing to do
+  if(!game.started) {
+    return;
+  }
+
+  resetDeck();
+  //reset moves to 0
+  document.getElementsByClassName('moves')[0].innerText=0;
+  //reset timer to 00:00
+  document.getElementsByClassName('timer')[0].innerText='00:00';
+  //reset all three stars to be visible
+  const stars = document.getElementsByClassName('fa-star');
+  for(let i=0; i<3; i++) {
+    stars[i].classList.remove('hidden');
+  }
+  //empty open card list
+  openCards = [];
+  //stop timer
+  clearInterval(game.intervalId)
+  //reset game values
+  game.matches = 0;
+  game.started = false;
+  game.starRating = 3;
+  game.moves = 0;
+  game.startTime = null;
+  game.endTime = null;
+  game.intervalId = null;
+}
 
 let openCards = [];
 let game = {
   matches: 0,
   started: false,
   starRating: 3,
-  moves: 0
+  moves: 0,
+  startTime: null,
+  endTime: null
 };
-deck = document.getElementsByClassName('deck')[0];
-deck.addEventListener('click', respondToClick );
 
+
+setupGame();
+
+const deck = document.getElementsByClassName('deck')[0];
+deck.addEventListener('click', respondToClick );
+const restartButton = document.getElementsByClassName('restart')[0];
+restartButton.addEventListener('click', resetGame );
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

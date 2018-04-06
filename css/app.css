@@ -103,6 +103,10 @@ h1 {
     display: inline-block;
 }
 
+.score-panel .stars .fa-star .hidden {
+  display: none;
+}
+
 .score-panel .timer {
   display: inline-block;
   margin: 0 0 0 60px;
