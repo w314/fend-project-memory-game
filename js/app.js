@@ -182,6 +182,11 @@ function resetGame() {
   game.intervalId = null;
 }
 
+function closeEndGameModal() {
+  const endGameModal = document.getElementsByClassName('end-game-modal')[0];
+  endGameModal.classList.add('hidden');
+}
+
 
 //define game variables
 let game = {
@@ -209,11 +214,15 @@ if(testing) {
 
 //get game ready to start
 setupGame();
+//add clik event listener to cards
 const deck = document.getElementsByClassName('deck')[0];
 deck.addEventListener('click', respondToClick );
+//add click event listener to restart game button
 const restartButton = document.getElementsByClassName('restart')[0];
 restartButton.addEventListener('click', resetGame );
-
+//add click listener to end game modal close button
+const modalClose = document.getElementsByClassName('close')[0];
+modalClose.addEventListener('click', closeEndGameModal );
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
