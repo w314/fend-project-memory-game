@@ -47,15 +47,44 @@ function resetDeck() {
     //add new symbol class to card
     cards[i].firstElementChild.classList.add(symbols[i]);
   }
-
 }
 
 function handleEndGame() {
   //stop timer
   clearInterval(game.intervalId);
+  //set stopTime
   game.stopTime = new Date();
-  const gameTime = new Date(game.stopTime - game.startTime)
-  alert(gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
+  //calculate gameTime
+  game.gameTime = new Date(game.stopTime - game.startTime);
+  //update timer on page to show correct gameTime
+  const timer = document.getElementsByClassName('timer')[0];
+  timer.innerText = game.gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
+
+  //display end game modal
+  const endGameModal = document.getElementsByClassName('end-game-modal')[0];
+  const timeResult = document.getElementsByClassName('time-result')[0];
+  timeResult.innerText = game.gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
+  const movesResult = document.getElementsByClassName('moves-result')[0];
+  movesResult.innerText = game.moves;
+  const starResult = document.getElementsByClassName('star-result')[0];
+  let starResultHtml = '';
+  for(let i=0; i<game.starRating; i++) {
+    starResultHtml += '<span class="fa fa-star"></span>'
+  }
+  if(starResultHtml === '') {
+    starResultHtml = '<span class="fa fa-frown"></span><p>no stars this time...</p>';
+  }
+  console.log('TESTING');
+  console.log('starResult:');
+  console.log(starResult);
+  // console.log(starResultHtml);
+  console.log('innerhtml before:');
+  console.log(starResult.innerHTML);
+  starResult.innerHTML = starResultHtml;
+  console.log('innerhtml after');
+  console.log(starResult.innerHTML);
+  setTimeout(function() { endGameModal.classList.remove('hidden'); }, 10);
+  // endGameModal.classList.remove('hidden');
 }
 
 
@@ -199,7 +228,8 @@ let game = {
   starRating: 3,
   moves: 0,
   startTime: null,
-  endTime: null
+  endTime: null,
+  gameTime: null
 };
 let openCards = [];
 let level1 = 30;
@@ -210,10 +240,10 @@ let winningScore = 8;
 //variables for testing
 const testing = true;
 if(testing) {
-  level1 = 3;
-  level2 = 5;
-  level3 = 7;
-  winningScore = 2;
+  level1 = 2;
+  level2 = 4;
+  level3 = 6;
+  winningScore = 1;
 }
 
 //get game ready to star
