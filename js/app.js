@@ -61,30 +61,26 @@ function handleEndGame() {
   timer.innerText = game.gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
 
   //display end game modal
+  //update game time
   const endGameModal = document.getElementsByClassName('end-game-modal')[0];
   const timeResult = document.getElementsByClassName('time-result')[0];
   timeResult.innerText = game.gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
+  //update moves
   const movesResult = document.getElementsByClassName('moves-result')[0];
   movesResult.innerText = game.moves;
+  //update stars
   const starResult = document.getElementsByClassName('star-result')[0];
-  let starResultHtml = '';
-  for(let i=0; i<game.starRating; i++) {
-    starResultHtml += '<span class="fa fa-star"></span>'
+  if(game.starRating === 0) {
+    starResult.innerText = '( 0 stars )';
+  } else {
+    let starResultHtml = '';
+    for(let i=0; i<game.starRating; i++) {
+      starResultHtml += '<span class="fa fa-star"></span>'
+    }
+    starResult.innerHTML = starResultHtml;
   }
-  if(starResultHtml === '') {
-    starResultHtml = '<span class="fa fa-frown"></span><p>no stars this time...</p>';
-  }
-  console.log('TESTING');
-  console.log('starResult:');
-  console.log(starResult);
-  // console.log(starResultHtml);
-  console.log('innerhtml before:');
-  console.log(starResult.innerHTML);
-  starResult.innerHTML = starResultHtml;
-  console.log('innerhtml after');
-  console.log(starResult.innerHTML);
-  setTimeout(function() { endGameModal.classList.remove('hidden'); }, 10);
-  // endGameModal.classList.remove('hidden');
+  //display end game modal
+  endGameModal.classList.remove('hidden');
 }
 
 
@@ -240,9 +236,9 @@ let winningScore = 8;
 //variables for testing
 const testing = true;
 if(testing) {
-  level1 = 2;
-  level2 = 4;
-  level3 = 6;
+  level1 = 30;
+  level2 = 40;
+  level3 = 50;
   winningScore = 1;
 }
 
