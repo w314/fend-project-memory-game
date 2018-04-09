@@ -92,13 +92,13 @@ function setupGame() {
 
 function handleMatchingCards() {
     console.log("cards are matching");
-    openCards.forEach(function(card) {
+    game.openCards.forEach(function(card) {
       card.classList.add('match');
     });
     //increases number of matched cards
     game.matches++;
     //empty open cards list
-    openCards = [];
+    game.openCards = [];
     //check for end of game
     if(game.matches === winningScore) {
       //add timeout, to avoid end of game message shown before the last pair of cards are redrawn
@@ -107,10 +107,10 @@ function handleMatchingCards() {
 }
 
 function handleDiffrentCards() {
-  openCards.forEach(function(card) {
+  game.openCards.forEach(function(card) {
     setTimeout(function() { card.classList.remove('show', 'open');}, 1000);
   });
-  openCards = [];
+  game.openCards = [];
 }
 
 function showSymbol(card) {
@@ -134,9 +134,9 @@ function increaseMoves() {
 }
 
 function addToOpenCards(card) {
-  openCards.push(card);
-  if(openCards.length === 2) {
-    if (openCards[0].firstElementChild.classList.value === openCards[1].firstElementChild.classList.value) {
+  game.openCards.push(card);
+  if(game.openCards.length === 2) {
+    if (game.openCards[0].firstElementChild.classList.value === game.openCards[1].firstElementChild.classList.value) {
       handleMatchingCards();
     } else{
       handleDiffrentCards();
@@ -193,8 +193,6 @@ function resetGame() {
   for(let i=0; i<3; i++) {
     stars[i].classList.remove('hidden');
   }
-  //empty open card list
-  openCards = [];
   //stop timer
   clearInterval(game.intervalId)
   //reset game values
@@ -205,6 +203,7 @@ function resetGame() {
   game.startTime = null;
   game.endTime = null;
   game.intervalId = null;
+  game.openCards = [];
 }
 
 function closeEndGameModal() {
@@ -225,9 +224,10 @@ let game = {
   moves: 0,
   startTime: null,
   endTime: null,
-  gameTime: null
+  gameTime: null,
+  openCards: []
 };
-let openCards = [];
+
 let level1 = 30;
 let level2 = 40;
 let level3 = 50;
@@ -236,9 +236,9 @@ let winningScore = 8;
 //variables for testing
 const testing = true;
 if(testing) {
-  level1 = 30;
-  level2 = 40;
-  level3 = 50;
+  level1 = 10;
+  level2 = 20;
+  level3 = 30;
   winningScore = 1;
 }
 
