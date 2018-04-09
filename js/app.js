@@ -16,7 +16,7 @@ function shuffle(array) {
 function resetDeck() {
 
   const symbols = [
-    'fa-dimond',
+    'fa-diamond',
     'fa-paper-plane-o',
     'fa-anchor',
     'fa-bolt',
@@ -24,7 +24,7 @@ function resetDeck() {
     'fa-leaf',
     'fa-bicycle',
     'fa-bomb',
-    'fa-dimond',
+    'fa-diamond',
     'fa-paper-plane-o',
     'fa-anchor',
     'fa-bolt',
@@ -91,7 +91,6 @@ function setupGame() {
 
 
 function handleMatchingCards() {
-    console.log("cards are matching");
     game.openCards.forEach(function(card) {
       card.classList.add('match');
     });
@@ -108,7 +107,7 @@ function handleMatchingCards() {
 
 function handleDiffrentCards() {
   game.openCards.forEach(function(card) {
-    setTimeout(function() { card.classList.remove('show', 'open');}, 1000);
+    setTimeout(function() { card.classList.remove('show', 'open');}, 500);
   });
   game.openCards = [];
 }
@@ -150,12 +149,21 @@ function respondToClick(event) {
     startTimer();
     game.started = true;
   }
-  const card = event.target;
-  //check if card clicked is already shown
+  //determine the card clicked
+  let card = event.target;
+  //if a symbol was clicked change card variable to parent of the event:
+  //the card itself
+  //only an issue if a user keeps clicking cards already shown
+  //as the game only wants to deal with new cards, it needs the classes of
+  // the card not it's symbol to know what the clicked card status is
+  if(!card.classList.contains('card')){
+    card = event.target.parentElement;
+  }
+  //respond only if card is not shown already
   if(!card.classList.contains('show')) {
-    increaseMoves();
-    showSymbol(card);
     addToOpenCards(card);
+    showSymbol(card);
+    increaseMoves();
   }
 }
 
@@ -168,14 +176,10 @@ function displayTime() {
 
 function startTimer() {
   game.startTime =  new Date();
-  console.log('starting at:');
-  console.log(game.startTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false}));
   game.intervalId = setInterval(function() { displayTime(); }, 800);
 }
 
 function resetGame() {
-  //TO DO: ask for are you sure
-
   //if game has not started yet, nothing to do
   if(!game.started) {
     return;
