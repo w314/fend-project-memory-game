@@ -152,9 +152,7 @@ function respondToClick(event) {
   }
   const card = event.target;
   //check if card clicked is already shown
-  if(card.classList.contains('show')) {
-    console.log('card is already shown');
-  } else {
+  if(!card.classList.contains('show')) {
     increaseMoves();
     showSymbol(card);
     addToOpenCards(card);
@@ -216,6 +214,7 @@ function newGame() {
   resetGame();
 }
 
+
 //define game variables
 let game = {
   matches: 0,
@@ -228,6 +227,7 @@ let game = {
   openCards: []
 };
 
+//variables for game levels
 let level1 = 30;
 let level2 = 40;
 let level3 = 50;
@@ -242,11 +242,7 @@ if(testing) {
   winningScore = 1;
 }
 
-//get game ready to star
-setupGame();
-//add clik event listener to cards
-const deck = document.getElementsByClassName('deck')[0];
-deck.addEventListener('click', respondToClick );
+
 //add click event listener to restart game button
 const restartButton = document.getElementsByClassName('restart')[0];
 restartButton.addEventListener('click', resetGame );
@@ -261,3 +257,10 @@ modalNewGame.addEventListener('click', newGame);
 //add click event listener to end game modal no new game button
 const modalNoNewGame = document.getElementsByClassName('no-new-game')[0];
 modalNoNewGame.addEventListener('click', closeEndGameModal);
+
+//get deck ready to start game
+setupGame();
+
+//add clik event listener to cards
+const deck = document.getElementsByClassName('deck')[0];
+deck.addEventListener('click', respondToClick );
