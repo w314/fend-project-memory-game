@@ -283,7 +283,7 @@ let level3 = 50;
 let winningScore = 8;
 
 //define variables for testing
-const testing = true;
+const testing = false;
 if(testing) {
   level1 = 10;
   level2 = 20;
