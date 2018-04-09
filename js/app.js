@@ -1,3 +1,8 @@
+/**
+* @description Shuffles an array
+* @param {array} array - The array of card symbols
+* @returns {array} array = The reshuffled array of card symbols
+*/
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -13,6 +18,9 @@ function shuffle(array) {
     return array;
 }
 
+/**
+* @description Reshuffles cards in deck and hides all symbols on them
+*/
 function resetDeck() {
 
   const symbols = [
@@ -34,10 +42,11 @@ function resetDeck() {
     'fa-bomb'
   ];
 
+  //shuffle order of symbols
   shuffle(symbols);
 
+  //reassing symbols to cards and set them not to show the symbols
   const cards = document.getElementsByClassName('card');
-
   for(let i=0; i < 16; i++){
     //remove classes from cards showing game status
     cards[i].classList.remove('match', 'show', 'open');
@@ -49,6 +58,9 @@ function resetDeck() {
   }
 }
 
+/**
+* @description Handles end of game after matching all cards
+*/
 function handleEndGame() {
   //stop timer
   clearInterval(game.intervalId);
@@ -60,7 +72,7 @@ function handleEndGame() {
   const timer = document.getElementsByClassName('timer')[0];
   timer.innerText = game.gameTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
 
-  //display end game modal
+  //run end game modal
   //update game time
   const endGameModal = document.getElementsByClassName('end-game-modal')[0];
   const timeResult = document.getElementsByClassName('time-result')[0];
@@ -83,13 +95,9 @@ function handleEndGame() {
   endGameModal.classList.remove('hidden');
 }
 
-
-function setupGame() {
-  //shuffle and hide all cards
-  resetDeck();
-}
-
-
+/**
+* @description Hanlde matching cards, check if game is won
+*/
 function handleMatchingCards() {
     game.openCards.forEach(function(card) {
       card.classList.add('match');
@@ -105,6 +113,9 @@ function handleMatchingCards() {
     }
 }
 
+/**
+* @description Handle different cards, remove them from open cards list and hide their symbols
+*/
 function handleDiffrentCards() {
   game.openCards.forEach(function(card) {
     setTimeout(function() { card.classList.remove('show', 'open');}, 500);
@@ -112,16 +123,27 @@ function handleDiffrentCards() {
   game.openCards = [];
 }
 
+
+/**
+* @description Change a card to show its symbol
+* @param {object} card - the selected card
+*/
 function showSymbol(card) {
   card.classList.add('show', 'open');
 }
 
+/**
+* @description Take one star away if there are stars left
+*/
 function decreaseStars() {
   game.starRating--;
   const star = document.getElementsByClassName('fa-star')[game.starRating];
   setTimeout(function() { star.classList.add('hidden'); },10);
 }
 
+/**
+* @description Increase moves by one and update moves counter on page check if stars need decreasing
+*/
 function increaseMoves() {
   game.moves++;
   const moves =   document.getElementsByClassName('moves')[0];
@@ -132,6 +154,10 @@ function increaseMoves() {
   }
 }
 
+/**
+* @description Add selected card to open cards, if there are already 2 cards open compare them
+* @param {object} card - the selected card
+*/
 function addToOpenCards(card) {
   game.openCards.push(card);
   if(game.openCards.length === 2) {
@@ -143,6 +169,10 @@ function addToOpenCards(card) {
   }
 }
 
+/**
+* @description Respond to click on card, start timer if its first click
+* @param {object} event - the click event
+*/
 function respondToClick(event) {
   //At the first click start the game
   if(!game.started) {
@@ -167,6 +197,9 @@ function respondToClick(event) {
   }
 }
 
+/**
+* @description Continously update time elapsed since the game started
+*/
 function displayTime() {
   const timeNow = new Date();
   const elapsedTime = new Date(timeNow - game.startTime);
@@ -174,11 +207,17 @@ function displayTime() {
   timer.innerText = elapsedTime.toLocaleTimeString([], {minute: '2-digit', second: '2-digit', hour12: false});
 }
 
+/**
+* @description Start the timer and call displayTime to continue updating the page with the elapsed time
+*/
 function startTimer() {
   game.startTime =  new Date();
   game.intervalId = setInterval(function() { displayTime(); }, 800);
 }
 
+/**
+* @description Stops and resets the game
+*/
 function resetGame() {
   //if game has not started yet, nothing to do
   if(!game.started) {
@@ -208,11 +247,17 @@ function resetGame() {
   game.openCards = [];
 }
 
+/**
+* @description Closes the end game modal window
+*/
 function closeEndGameModal() {
   const endGameModal = document.getElementsByClassName('end-game-modal')[0];
   endGameModal.classList.add('hidden');
 }
 
+/**
+* @description Closes the end game modal window and starts a new game
+*/
 function newGame() {
   closeEndGameModal();
   resetGame();
@@ -231,13 +276,13 @@ let game = {
   openCards: []
 };
 
-//variables for game levels
+//define variables for game levels
 let level1 = 30;
 let level2 = 40;
 let level3 = 50;
 let winningScore = 8;
 
-//variables for testing
+//define variables for testing
 const testing = true;
 if(testing) {
   level1 = 10;
@@ -263,7 +308,7 @@ const modalNoNewGame = document.getElementsByClassName('no-new-game')[0];
 modalNoNewGame.addEventListener('click', closeEndGameModal);
 
 //get deck ready to start game
-setupGame();
+resetDeck();
 
 //add clik event listener to cards
 const deck = document.getElementsByClassName('deck')[0];

@@ -1,20 +1,30 @@
-# Memory Game Project
+# Memory Game
 
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Description
+This a memory game where you have to find all the matching cards to win.
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+### Goal of the game:
+Find all 8 matching cards.
 
-To get started, open `js/app.js` and start building out the app's functionality
+### To start the game:
+Start the game by clicking on any card.
+You can always restart your game by clicking on the restart icon above the top right corner of your card-deck.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+### To play to game:
+Flip over any other card to find a match.
+If you have found a match they will stay flipped over, you have won the game if you have found all matching cards.
 
-## Contributing
+## Performance measures
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+### Moves
+During each game the number of flips needed to find all matching cards are counted as moves.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+### Elapsed time
+The time you need to win the game is measured.
+
+### Start rating
+The player is awarded stars for his/her performance. Three stars for the best performance if the game is won under 30 moves, 2 stars if the game is won under 40 moves and 1 star if the game is won under 50 moves. No stars are awarded if winning the game requires 50 moves or more.  
+
+The player can see his/her performance measures in real-time above the deck of cards. A summary of the game performance is also provided at the end of the game.
